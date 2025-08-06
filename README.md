@@ -25,15 +25,75 @@ In the output, you'll find options to open the app in a
 
 You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
-## Get a fresh project
+## Running E2E Tests with Maestro
 
-When you're ready, run:
+### Prerequisites
 
-```bash
-npm run reset-project
-```
+1. Install Maestro:
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+   ```bash
+   curl -Ls "https://get.maestro.mobile.dev" | bash
+   ```
+
+2. Install the Maestro CLI:
+   ```bash
+   brew tap mobile-dev-inc/tap
+   brew install maestro
+   ```
+
+### Running Tests
+
+1. Start your app in development mode:
+
+   ```bash
+   npx expo start
+   ```
+
+2. Open your app in the iOS Simulator or Android Emulator
+
+3. Run Maestro tests:
+
+   For iOS:
+
+   ```bash
+   maestro test e2e/ios/form_submission.yaml
+   ```
+
+   For Android:
+
+   ```bash
+   maestro test e2e/android/form_submission.yaml
+   ```
+
+### Available Test Flows
+
+- `form_submission.yaml`: Tests the form submission flow
+  - Validates name input
+  - Validates email input
+  - Tests form submission
+  - Verifies submission results
+
+### Writing New Tests
+
+1. Create a new `.yaml` file in the appropriate platform directory (`e2e/ios/` or `e2e/android/`)
+2. Follow the Maestro flow syntax:
+   ```yaml
+   appId: host.exp.Exponent
+   ---
+   - launchApp
+   - tapOn:
+       id: "element_id"
+   - inputText: "your text"
+   - assertVisible:
+       id: "result_id"
+   ```
+
+### Troubleshooting
+
+- Make sure your app is running and the simulator/emulator is open before running tests
+- Verify that element IDs in your tests match those in your app components
+- Use `maestro studio` to help identify element selectors
+- Run `maestro hierarchy` to view the current screen hierarchy
 
 ## Learn more
 
