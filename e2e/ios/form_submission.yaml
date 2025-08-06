@@ -1,0 +1,15 @@
+appId: host.exp.Exponent
+---
+- launchApp
+- tapOn:
+    id: "name_input"
+- inputText: "John Doe"
+- tapOn:
+    id: "email_input"
+- inputText: "john.doe@example.com"
+- tapOn:
+    id: "submit_button"
+- assertVisible:
+    id: "submission_result"
+- assertVisible: "Name: John Doe"
+- assertVisible: "Email: john.doe@example.com"
